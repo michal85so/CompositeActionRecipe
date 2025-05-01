@@ -1,14 +1,30 @@
 name: CI Workflow
-on: [push, pull_request]
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  issues:
+    types: [opened]
 jobs:
   ci-job:
     runs-on: ubuntu-latest
     steps: 
       - uses: actions/checkout@v4.1.1
-      - name: Run my own composite action (uruchom moją własną akcję złożoną)
-        id: my-action
-        uses: ./
+      - name: Awesome Github script action
+        uses: actions/github-script@v6
         with:
-          who-to-greet: "@wulfland"
+          script: |
+            var whoToGreet = core.getInput('who-to-greet');
+            core.notice(`Cześć ${whoToGreet}`);
+            core.setOutput('answer', 42);
+            if (context.eventName === 'issues') {
+              github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: 'Thanks for reporting!'
+              })
+            }
       - name: Output the answer (wypisz odpowiedź)
         run: echo "Odpowiedź to ${{ steps.my-action.outputs.answer }}"
