@@ -11,20 +11,10 @@ jobs:
     runs-on: ubuntu-latest
     steps: 
       - uses: actions/checkout@v4.1.1
-      - name: Awesome Github script action
-        uses: actions/github-script@v6
+      - name: Run my own composite action (uruchom moją własną akcję złożoną)
+        id: my-action
+        uses: ./
         with:
-          script: |
-            var whoToGreet = core.getInput('who-to-greet');
-            core.notice('Cześć ${whoToGreet}');
-            core.setOutput('answer', 42);
-            if (context.eventName === 'issues') {
-              github.rest.issues.createComment({
-                issue_number: context.issue.number,
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                body: 'Thanks for reporting!'
-              })
-            }
+          who-to-greet: "@wulfland"
       - name: Output the answer (wypisz odpowiedź)
         run: echo "Odpowiedź to ${{ steps.my-action.outputs.answer }}"
