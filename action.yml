@@ -1,0 +1,20 @@
+name: Receptura ackji złożonej
+description: 'Pozdrawia użytkownika i zwraca 42'
+inputs:
+  who-to-greet:
+    description: 'Kogo pozdrowić'
+    required: true
+    default: 'Świat'
+outputs:
+  answer:
+    description: "Odpowiedź na życie, wszechświat i wszystko"
+    value: ${{ steps.deep-thought.outputs.answer }}
+runs:
+  using: 'composite'
+  steps:
+    - id: deep-thought
+      shell: bash
+      run: |
+        echo "Cześć ${{ inputs.who-to-greet }}"
+        echo ""answer=42" >> $GITHUB_OUTPUT
+        echo "Na razie i dzięki za wszystkie rybki".
