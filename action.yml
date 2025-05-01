@@ -16,5 +16,5 @@ runs:
       shell: bash
       run: |
         echo "Cześć ${{ inputs.who-to-greet }}"
-        echo ""answer=42" >> $GITHUB_OUTPUT
+        echo "answer=42" >> $GITHUB_OUTPUT
         echo "Na razie i dzięki za wszystkie rybki".
