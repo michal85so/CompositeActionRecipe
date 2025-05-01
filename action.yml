@@ -17,7 +17,7 @@ runs:
       with:
         script: |
           var whoToGreet = core.getInput('who-to-greet');
-          core.notice('Cześć ${whoToGreet}'');
+          core.notice('Cześć ${whoToGreet}');
           core.setOutput('answer', 42);
           if (context.eventName === 'issues') {
             github.rest.issues.createComment({
